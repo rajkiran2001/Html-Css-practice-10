@@ -1,0 +1,84 @@
+Private Sub DataGridView1_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellClick
+    ' Your code here to handle the CellClick event
+
+    ' Change the appearance of the clicked cell
+    If e.RowIndex >= 0 AndAlso e.ColumnIndex >= 0 Then ' Ensure it's not a header cell
+        Dim clickedCell As DataGridViewCell = DataGridView1.Rows(e.RowIndex).Cells(e.ColumnIndex)
+
+        ' Example: Change the background color and text color of the clicked cell
+        clickedCell.Style.BackColor = Color.Yellow
+        clickedCell.Style.ForeColor = Color.Blue
+    End If
+End Sub
+
+
+
+Private Sub DataGridView1_SelectionChanged(sender As Object, e As EventArgs) Handles DataGridView1.SelectionChanged
+    ' Reset the appearance of all cells to the default values
+    For Each row As DataGridViewRow In DataGridView1.Rows
+        For Each cell As DataGridViewCell In row.Cells
+            cell.Style.BackColor = DataGridView1.DefaultCellStyle.BackColor
+            cell.Style.ForeColor = DataGridView1.DefaultCellStyle.ForeColor
+        Next
+    Next
+End Sub
+
+
+
+
+Private Sub DataGridView1_RowEnter(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.RowEnter
+    ' Your code here for RowEnter event
+
+    ' Change the back color of cells in the entered row
+    If e.RowIndex >= 0 Then
+        Dim enteredRow As DataGridViewRow = DataGridView1.Rows(e.RowIndex)
+
+        ' Example: Change the background color of cells in the entered row
+        For Each cell As DataGridViewCell In enteredRow.Cells
+            cell.Style.BackColor = Color.LightBlue
+        Next
+    End If
+End Sub
+
+Private Sub DataGridView1_RowLeave(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.RowLeave
+    ' Your code here for RowLeave event
+
+    ' Change the back color of cells in the left row
+    If e.RowIndex >= 0 Then
+        Dim leftRow As DataGridViewRow = DataGridView1.Rows(e.RowIndex)
+
+        ' Example: Change the background color of cells in the left row
+        For Each cell As DataGridViewCell In leftRow.Cells
+            cell.Style.BackColor = DataGridView1.DefaultCellStyle.BackColor
+        Next
+    End If
+End Sub
+
+
+
+
+
+Private Sub DataGridView1_CellMouseDoubleClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles DataGridView1.CellMouseDoubleClick
+    ' Your code here for CellMouseDoubleClick event
+
+    ' Make the DataGridView editable after a double-click
+    DataGridView1.ReadOnly = False
+End Sub
+Private Sub DataGridView1_CellEndEdit(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellEndEdit
+    ' Your code here for CellEndEdit event
+
+    ' Make the DataGridView non-editable after editing is complete
+    DataGridView1.ReadOnly = True
+End Sub
+
+
+
+
+
+
+
+
+
+
+
+
