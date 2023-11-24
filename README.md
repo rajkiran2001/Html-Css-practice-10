@@ -1,4 +1,4 @@
-Task Tracker Application
+jiTask Tracker Application
 Features:
 Task List:
 
@@ -290,3 +290,70 @@ Deployment is the final step; it's important but should follow thorough testing 
 Message ChatGPT…
 
 ChatGPT can make mistakes. Co
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Certainly! Here's a sample one-week timetable with a focus on chest exercises:
+
+Monday: Chest Day
+
+Barbell Bench Press: 4 sets x 8-10 reps
+Dumbbell Flyes: 3 sets x 12 reps
+Incline Dumbbell Press: 4 sets x 10-12 reps
+Chest Dips: 3 sets x 15 reps
+Cable Crossover: 3 sets x 12 reps
+Tuesday: Cardio and Core
+
+30 minutes of cardio (running, cycling, or your preferred activity)
+Plank: 3 sets x 30 seconds
+Russian Twists: 3 sets x 20 reps (10 each side)
+Leg Raises: 3 sets x 15 reps
+Wednesday: Rest or Light Activity
+
+Thursday: Back and Biceps
+
+Deadlifts: 4 sets x 8-10 reps
+Pull-Ups: 3 sets x max reps
+Barbell Rows: 4 sets x 10-12 reps
+Hammer Curls: 3 sets x 12 reps
+Seated Cable Rows: 3 sets x 12 reps
+Friday: Leg Day
+
+Squats: 4 sets x 10 reps
+Leg Press: 3 sets x 12 reps
+Lunges: 3 sets x 15 reps (each leg)
+Calf Raises: 4 sets x 15 reps
+Saturday: Shoulders and Triceps
+
+Military Press: 4 sets x 10 reps
+Lateral Raises: 3 sets x 12 reps
+Tricep Dips: 3 sets x 15 reps
+Front Plate Raise: 3 sets x 12 reps
+Skull Crushers: 3 sets x 12 reps
+Sunday: Rest or Active Recovery
+
+Adjust the weights and intensity based on your fitness level, and ensure you warm up before each session and cool down afterward. It's always a good idea to consult with a fitness professional or your healthcare provider before starting a new exercise program.
+
+
+
+
+
+Message ChatGPT…
+
+ChatGPT can make mistakes. 
