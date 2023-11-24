@@ -1,0 +1,82 @@
+Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    ' Set up the initial TextBox column
+    Dim textBoxColumn As New DataGridViewTextBoxColumn()
+    textBoxColumn.Name = "TextBoxColumn"
+    DataGridView1.Columns.Add(textBoxColumn)
+End Sub
+
+Private Sub DataGridView1_CellMouseDoubleClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles DataGridView1.CellMouseDoubleClick
+    ' Check if the double-clicked cell is in the TextBox column
+    If e.RowIndex >= 0 AndAlso e.ColumnIndex >= 0 Then
+        Dim selectedColumn As DataGridViewColumn = DataGridView1.Columns(e.ColumnIndex)
+
+        ' Check if the column type is TextBox
+        If TypeOf selectedColumn Is DataGridViewTextBoxColumn Then
+            ' Change the column type to ComboBox
+            Dim comboBoxColumn As New DataGridViewComboBoxColumn()
+            comboBoxColumn.Name = "ComboBoxColumn"
+            comboBoxColumn.Items.AddRange("Item 1", "Item 2") ' Add items to the ComboBox
+            DataGridView1.Columns(e.ColumnIndex) = comboBoxColumn
+        End If
+    End If
+End Sub
+
+Private Sub DataGridView1_EditingControlShowing(sender As Object, e As DataGridViewEditingControlShowingEventArgs) Handles DataGridView1.EditingControlShowing
+    ' Handle the EditingControlShowing event to customize the editing control
+    If DataGridView1.CurrentCell.ColumnIndex >= 0 AndAlso DataGridView1.CurrentCell.ColumnIndex < DataGridView1.Columns.Count Then
+        Dim selectedColumn As DataGridViewColumn = DataGridView1.Columns(DataGridView1.CurrentCell.ColumnIndex)
+
+        ' Check if the column type is ComboBox
+        If TypeOf selectedColumn Is DataGridViewComboBoxColumn Then
+            ' Attach an event handler to the ComboBox editing control
+            Dim comboBox As ComboBox = TryCast(e.Control, ComboBox)
+            If comboBox IsNot Nothing Then
+                AddHandler comboBox.SelectedIndexChanged, AddressOf ComboBox_SelectedIndexChanged
+            End If
+        End If
+    End If
+End Sub
+
+Private Sub ComboBox_SelectedIndexChanged(sender As Object, e As EventArgs)
+    ' Handle the selection change event in the ComboBox
+    Dim comboBox As ComboBox = DirectCast(sender, ComboBox)
+
+    ' Set the value in the TextBox cell to the selected item
+    DataGridView1.CurrentCell.Value = comboBox.SelectedItem.ToString()
+
+    ' Change the column type back to TextBox
+    Dim textBoxColumn As New DataGridViewTextBoxColumn()
+    textBoxColumn.Name = "TextBoxColumn"
+    DataGridView1.Columns(DataGridView1.CurrentCell.ColumnIndex) = textBoxColumn
+End Sub
+
+
+
+
+
+
+
+
+TryCast:
+
+The TryCast operator is used for a safe cast. It attempts to cast an object to a specified data type, and if the cast fails (i.e., if the object is not of the specified type or is Nothing), it returns Nothing instead of throwing an exception.
+vb
+Copy code
+Dim comboBox As ComboBox = TryCast(e.Control, ComboBox)
+In this line, TryCast is used to attempt to cast e.Control to a ComboBox. If e.Control is a ComboBox, comboBox will be assigned the reference to the ComboBox control; otherwise, it will be assigned Nothing.
+
+DirectCast:
+
+The DirectCast operator is used for an explicit cast. It attempts to cast an object to a specified data type, but if the cast fails, it throws an exception.
+vb
+Copy code
+Dim comboBox As ComboBox = DirectCast(sender, ComboBox)
+In this line, DirectCast is used to explicitly cast sender to a ComboBox. If sender is not a ComboBox or cannot be cast to a ComboBox, an exception will be thrown.
+
+In the context of the provided code:
+
+TryCast(e.Control, ComboBox) is used to attempt to cast the editing control of the DataGridView to a ComboBox. If successful, comboBox will refer to the ComboBox; otherwise, it will be Nothing.
+
+DirectCast(sender, ComboBox) is used to explicitly cast the sender object to a ComboBox. This is performed in the ComboBox_SelectedIndexChanged event handler, assuming that sender is expected to be a ComboBox.
+
+These casting operators help manage the types of objects and ensure type safety in your code. The choice between TryCast and DirectCast depends on whether you want to handle a potential failure gracefully (TryCast) or if you expect the cast to always succeed (DirectCast).
