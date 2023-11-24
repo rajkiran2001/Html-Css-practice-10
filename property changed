@@ -81,4 +81,16 @@ End Sub
 
 
 
+Private Sub DataGridView1_CellPainting(sender As Object, e As DataGridViewCellPaintingEventArgs) Handles DataGridView1.CellPainting
+    If e.RowIndex >= 0 AndAlso e.ColumnIndex >= 0 Then
+        ' Check if the current cell is the top-left cell of a merged region
+        If e.ColumnIndex = 0 AndAlso e.RowIndex > 0 AndAlso DataGridView1.Rows(e.RowIndex).Cells(e.ColumnIndex).Value = DataGridView1.Rows(e.RowIndex - 1).Cells(e.ColumnIndex).Value Then
+            ' Set the Handled property to true to prevent the default painting
+            e.Handled = True
 
+            ' Draw the merged cell
+            e.Graphics.FillRectangle(Brushes.LightGray, e.CellBounds)
+            e.Graphics.DrawString(e.Value.ToString(), e.CellStyle.Font, Brushes.Black, e.CellBounds.X + 2, e.CellBounds.Y + 2)
+        End If
+    End If
+End Sub
