@@ -1,0 +1,296 @@
+Private Sub SortDataGridViewColumn(columnIndex As Integer)
+    ' Check if the column index is valid
+    If columnIndex >= 0 AndAlso columnIndex < DataGridView1.ColumnCount Then
+        ' Set the column to be sorted
+        Dim columnToSort As DataGridViewColumn = DataGridView1.Columns(columnIndex)
+
+        ' Check if the column is not already the one that is being sorted
+        If DataGridView1.SortedColumn IsNot Nothing AndAlso DataGridView1.SortedColumn.Index = columnIndex Then
+            ' Change the sort order
+            If DataGridView1.SortOrder = SortOrder.Ascending Then
+                DataGridView1.Sort(columnToSort, System.ComponentModel.ListSortDirection.Descending)
+            Else
+                DataGridView1.Sort(columnToSort, System.ComponentModel.ListSortDirection.Ascending)
+            End If
+        Else
+            ' Set the sort column and order
+            DataGridView1.Sort(columnToSort, System.ComponentModel.ListSortDirection.Ascending)
+        End If
+    End If
+End Sub
+
+
+SortDataGridViewColumn(0) ' Sort by the first column
+
+
+Private Sub DataGridView1_ColumnHeaderMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles DataGridView1.ColumnHeaderMouseClick
+    ' Sort the DataGridView based on the clicked column
+    SortDataGridViewColumn(e.ColumnIndex)
+End Sub
+
+
+
+
+
+
+
+
+
+
+
+
+' Assuming you have a DataGridView named DataGridView1
+Dim column1 As New DataGridViewTextBoxColumn()
+column1.HeaderText = "Column1"
+column1.Name = "Column1"
+
+Dim column2 As New DataGridViewTextBoxColumn()
+column2.HeaderText = "Column2"
+column2.Name = "Column2"
+
+' Add the columns to the DataGridView
+DataGridView1.Columns.Add(column1)
+DataGridView1.Columns.Add(column2)
+
+
+
+
+' Access a column by name
+Dim column As DataGridViewColumn = DataGridView1.Columns("Column1")
+
+' Access a column by index
+Dim columnIndex As Integer = 0
+Dim columnAtIndex As DataGridViewColumn = DataGridView1.Columns(columnIndex)
+
+
+
+
+
+' Assuming you have a DataGridView named DataGridView1
+
+' Remove a column by index
+Dim columnIndexToRemove As Integer = 0
+DataGridView1.Columns.RemoveAt(columnIndexToRemove)
+
+' OR
+
+' Remove a column by name
+Dim columnNameToRemove As String = "Column1"
+DataGridView1.Columns.Remove(columnNameToRemove)
+
+
+
+
+' Assuming you have a DataGridView named DataGridView1
+
+' Add a new row with specific values
+Dim newRow As DataGridViewRow = New DataGridViewRow()
+newRow.CreateCells(DataGridView1)
+
+' Set values for each cell in the new row
+newRow.Cells(0).Value = "Value1"
+newRow.Cells(1).Value = "Value2"
+' ... set values for other cells as needed
+
+' Add the new row to the DataGridView
+DataGridView1.Rows.Add(newRow)
+
+
+
+
+
+' Assuming you have a DataGridView named DataGridView1
+
+' Create a new row with specific values
+Dim newRow As DataGridViewRow = New DataGridViewRow()
+newRow.CreateCells(DataGridView1)
+
+' Set values for each cell in the new row
+newRow.Cells(0).Value = "Value1"
+newRow.Cells(1).Value = "Value2"
+' ... set values for other cells as needed
+
+' Insert the new row at a specific index
+Dim rowIndexToInsert As Integer = 1 ' Insert at index 1, for example
+DataGridView1.Rows.Insert(rowIndexToInsert, newRow)
+
+
+
+
+
+
+' Assuming you have a DataGridView named DataGridView1
+
+' Create a new column
+Dim newColumn As New DataGridViewTextBoxColumn()
+newColumn.HeaderText = "NewColumn"
+newColumn.Name = "NewColumn"
+
+' Add the new column to the DataGridView
+DataGridView1.Columns.Insert(1, newColumn)
+
+
+
+
+
+
+
+
+
+
+
+' Assuming you have a DataGridView named DataGridView1
+
+' Add a Text column
+Dim textColumn As New DataGridViewTextBoxColumn()
+textColumn.HeaderText = "Text Column"
+textColumn.Name = "TextColumn"
+DataGridView1.Columns.Add(textColumn)
+
+' Add a CheckBox column
+Dim checkBoxColumn As New DataGridViewCheckBoxColumn()
+checkBoxColumn.HeaderText = "CheckBox Column"
+checkBoxColumn.Name = "CheckBoxColumn"
+DataGridView1.Columns.Add(checkBoxColumn)
+
+' Add a ComboBox column
+Dim comboBoxColumn As New DataGridViewComboBoxColumn()
+comboBoxColumn.HeaderText = "ComboBox Column"
+comboBoxColumn.Name = "ComboBoxColumn"
+' Set up the ComboBox items if needed
+comboBoxColumn.Items.AddRange("Item1", "Item2", "Item3")
+DataGridView1.Columns.Add(comboBoxColumn)
+
+' Add a Button column
+Dim buttonColumn As New DataGridViewButtonColumn()
+buttonColumn.HeaderText = "Button Column"
+buttonColumn.Name = "ButtonColumn"
+DataGridView1.Columns.Add(buttonColumn)
+
+' Add a Link column
+Dim linkColumn As New DataGridViewLinkColumn()
+linkColumn.HeaderText = "Link Column"
+linkColumn.Name = "LinkColumn"
+DataGridView1.Columns.Add(linkColumn)
+
+' Attach event handlers to specific column types
+
+AddHandler DataGridView1.CellContentClick, AddressOf DataGridView1_CellContentClick
+AddHandler DataGridView1.CellValueChanged, AddressOf DataGridView1_CellValueChanged
+AddHandler DataGridView1.CellClick, AddressOf DataGridView1_CellClick
+
+
+
+
+
+
+
+
+' Assuming you have a DataGridView named DataGridView1
+
+' Add a CheckBox column
+Dim checkBoxColumn As New DataGridViewCheckBoxColumn()
+checkBoxColumn.HeaderText = "CheckBox Column"
+checkBoxColumn.Name = "CheckBoxColumn"
+DataGridView1.Columns.Add(checkBoxColumn)
+
+' Add a ComboBox column
+Dim comboBoxColumn As New DataGridViewComboBoxColumn()
+comboBoxColumn.HeaderText = "ComboBox Column"
+comboBoxColumn.Name = "ComboBoxColumn"
+' Set up the ComboBox items if needed
+comboBoxColumn.Items.AddRange("Item1", "Item2", "Item3")
+DataGridView1.Columns.Add(comboBoxColumn)
+
+' Add a Button column
+Dim buttonColumn As New DataGridViewButtonColumn()
+buttonColumn.HeaderText = "Button Column"
+buttonColumn.Name = "ButtonColumn"
+DataGridView1.Columns.Add(buttonColumn)
+
+' Add a Link column
+Dim linkColumn As New DataGridViewLinkColumn()
+linkColumn.HeaderText = "Link Column"
+linkColumn.Name = "LinkColumn"
+DataGridView1.Columns.Add(linkColumn)
+
+' Attach event handlers to specific column types
+
+' CheckBox Column
+AddHandler DataGridView1.CellContentClick, AddressOf CheckBoxColumn_CellContentClick
+
+' ComboBox Column
+AddHandler DataGridView1.EditingControlShowing, AddressOf ComboBoxColumn_EditingControlShowing
+
+' Button Column
+AddHandler DataGridView1.CellContentClick, AddressOf ButtonColumn_CellContentClick
+
+' Link Column
+AddHandler DataGridView1.CellContentClick, AddressOf LinkColumn_CellContentClick
+
+
+
+
+
+Private Sub CheckBoxColumn_CellContentClick(sender As Object, e As DataGridViewCellEventArgs)
+    ' Handle the click event for CheckBox column
+    If e.ColumnIndex >= 0 AndAlso e.RowIndex >= 0 Then
+        Dim dataGridViewColumn As DataGridViewColumn = DataGridView1.Columns(e.ColumnIndex)
+
+        If dataGridViewColumn.GetType() Is GetType(DataGridViewCheckBoxColumn) Then
+            ' CheckBox column clicked
+            Dim checkBoxCell As DataGridViewCheckBoxCell = CType(DataGridView1.Rows(e.RowIndex).Cells(e.ColumnIndex), DataGridViewCheckBoxCell)
+            MessageBox.Show($"CheckBox clicked at row {e.RowIndex}, value: {checkBoxCell.Value}")
+        End If
+    End If
+End Sub
+
+Private Sub ComboBoxColumn_EditingControlShowing(sender As Object, e As DataGridViewEditingControlShowingEventArgs)
+    ' Handle the ComboBox EditingControlShowing event
+    Dim comboBox As ComboBox = TryCast(e.Control, ComboBox)
+
+    If comboBox IsNot Nothing Then
+        ' Remove any existing event handler to avoid attaching it multiple times
+        RemoveHandler comboBox.SelectedIndexChanged, AddressOf ComboBoxColumn_SelectedIndexChanged
+
+        ' Attach the SelectedIndexChanged event handler
+        AddHandler comboBox.SelectedIndexChanged, AddressOf ComboBoxColumn_SelectedIndexChanged
+    End If
+End Sub
+
+Private Sub ComboBoxColumn_SelectedIndexChanged(sender As Object, e As EventArgs)
+    ' Handle the SelectedIndexChanged event for ComboBox column
+    Dim comboBox As ComboBox = CType(sender, ComboBox)
+    Dim currentCell As DataGridViewCell = DataGridView1.CurrentCell
+
+    If currentCell IsNot Nothing AndAlso currentCell.ColumnIndex >= 0 AndAlso currentCell.RowIndex >= 0 Then
+        MessageBox.Show($"ComboBox selected index changed at row {currentCell.RowIndex}, value: {comboBox.SelectedItem}")
+    End If
+End Sub
+
+Private Sub ButtonColumn_CellContentClick(sender As Object, e As DataGridViewCellEventArgs)
+    ' Handle the click event for Button column
+    If e.ColumnIndex >= 0 AndAlso e.RowIndex >= 0 Then
+        Dim dataGridViewColumn As DataGridViewColumn = DataGridView1.Columns(e.ColumnIndex)
+
+        If dataGridViewColumn.GetType() Is GetType(DataGridViewButtonColumn) Then
+            ' Button column clicked
+            MessageBox.Show($"Button clicked at row {e.RowIndex}")
+        End If
+    End If
+End Sub
+
+Private Sub LinkColumn_CellContentClick(sender As Object, e As DataGridViewCellEventArgs)
+    ' Handle the click event for Link column
+    If e.ColumnIndex >= 0 AndAlso e.RowIndex >= 0 Then
+        Dim dataGridViewColumn As DataGridViewColumn = DataGridView1.Columns(e.ColumnIndex)
+
+        If dataGridViewColumn.GetType() Is GetType(DataGridViewLinkColumn) Then
+            ' Link column clicked
+            MessageBox.Show($"Link clicked at row {e.RowIndex}")
+        End If
+    End If
+End Sub
+
+
+
