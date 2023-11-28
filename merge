@@ -1,0 +1,178 @@
+Private Sub MergeButton_Click(sender As Object, e As EventArgs) Handles MergeButton.Click
+    ' Implement the cell merging logic here
+    MergeSelectedCells()
+End Sub
+
+
+
+Private Sub MergeSelectedCells()
+    ' Get the selected cells
+    Dim selectedCells As DataGridViewSelectedCellCollection = DataGridView1.SelectedCells
+
+    If selectedCells.Count > 1 Then
+        Dim minRow As Integer = selectedCells.Cast(Of DataGridViewCell)().Min(Function(cell) cell.RowIndex)
+        Dim maxRow As Integer = selectedCells.Cast(Of DataGridViewCell)().Max(Function(cell) cell.RowIndex)
+        Dim minCol As Integer = selectedCells.Cast(Of DataGridViewCell)().Min(Function(cell) cell.ColumnIndex)
+        Dim maxCol As Integer = selectedCells.Cast(Of DataGridViewCell)().Max(Function(cell) cell.ColumnIndex)
+
+        ' Merge cells
+        For i As Integer = minRow To maxRow
+            For j As Integer = minCol To maxCol
+                If i <> minRow OrElse j <> minCol Then
+                    ' Clear the content of merged cells (optional)
+                    DataGridView1(j, i).Value = DBNull.Value
+                End If
+            Next
+        Next
+
+        ' Set the value of the merged cell (you can set it to a specific value)
+        DataGridView1(minCol, minRow).Value = "Merged Value"
+    End If
+End Sub
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Private Sub MergeSelectedCells()
+    ' Get the selected cells
+    Dim selectedCells As DataGridViewSelectedCellCollection = DataGridView1.SelectedCells
+
+    If selectedCells.Count > 1 Then
+        ' Determine the minimum and maximum row and column indices
+        Dim minRow As Integer = selectedCells.Cast(Of DataGridViewCell)().Min(Function(cell) cell.RowIndex)
+        Dim maxRow As Integer = selectedCells.Cast(Of DataGridViewCell)().Max(Function(cell) cell.RowIndex)
+        Dim minCol As Integer = selectedCells.Cast(Of DataGridViewCell)().Min(Function(cell) cell.ColumnIndex)
+        Dim maxCol As Integer = selectedCells.Cast(Of DataGridViewCell)().Max(Function(cell) cell.ColumnIndex)
+
+        ' Create a custom cell to span the rectangle
+        Dim mergedCell As New MergedDataGridViewTextBoxCell()
+        ' Set the value of the merged cell (you can set it to a specific value)
+        mergedCell.Value = "Merged Value"
+
+        ' Merge cells by setting the custom cell to the top-left cell in the rectangle
+        DataGridView1(minCol, minRow) = mergedCell
+
+        ' Clear the content of other cells in the rectangle (optional)
+        For i As Integer = minRow To maxRow
+            For j As Integer = minCol To maxCol
+                If i <> minRow OrElse j <> minCol Then
+                    DataGridView1(j, i).Value = DBNull.Value
+                End If
+            Next
+        Next
+    End If
+End Sub
+
+' Custom DataGridViewTextBoxCell to represent the merged cell
+Public Class MergedDataGridViewTextBoxCell
+    Inherits DataGridViewTextBoxCell
+
+    Public Sub New()
+        ' Set properties for the merged cell
+        Me.ReadOnly = True
+        Me.Style.BackColor = Color.LightGray
+        Me.Style.SelectionBackColor = Color.LightGray
+    End Sub
+
+    ' You can override additional properties or methods as needed
+End Class
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Private Sub InitializeDGV()
+    ' This method initializes the main DataGridView with some data and a button in row index 3.
+    ' Call this method during your form load or initialization.
+    ' Customize it based on your actual DataGridView setup.
+    DataGridView1.Columns.Add("Column1", "Column 1")
+    DataGridView1.Columns.Add("Column2", "Column 2")
+
+    ' Add sample data
+    DataGridView1.Rows.Add("Data 1", "Data 2")
+    DataGridView1.Rows.Add("Data 3", "Data 4")
+    DataGridView1.Rows.Add("Data 5", "Data 6")
+
+    ' Add a button to row index 3
+    Dim buttonColumn As New DataGridViewButtonColumn()
+    buttonColumn.Name = "ButtonColumn"
+    buttonColumn.Text = "Create New DGV"
+    DataGridView1.Columns.Add(buttonColumn)
+
+    ' Handle button click event
+    AddHandler DataGridView1.CellClick, AddressOf DataGridView1_CellClick
+End Sub
+
+Private Sub DataGridView1_CellClick(sender As Object, e As DataGridViewCellEventArgs)
+    ' Check if the clicked cell is a button in the desired row (row index 3)
+    If e.RowIndex = 3 AndAlso e.ColumnIndex = DataGridView1.Columns("ButtonColumn").Index Then
+        ' Create a new DataGridView
+        Dim newDGV As New DataGridView()
+        newDGV.Columns.Add("NewColumn1", "New Column 1")
+        newDGV.Columns.Add("NewColumn2", "New Column 2")
+        newDGV.Rows.Add("New Data 1", "New Data 2")
+        newDGV.Rows.Add("New Data 3", "New Data 4")
+
+        ' Add the new DataGridView between rows 3 and 4
+        Dim rowIndexToInsertAfter As Integer = 3
+        DataGridView1.Controls.Add(newDGV)
+        newDGV.Top = DataGridView1.GetCellDisplayRectangle(0, rowIndexToInsertAfter, True).Top
+        newDGV.Left = DataGridView1.Left
+        newDGV.Width = DataGridView1.Width
+
+        ' Adjust the location of rows below the insertion point
+        For i As Integer = rowIndexToInsertAfter + 1 To DataGridView1.Rows.Count - 1
+            DataGridView1.Rows(i).Cells(0).Value = "Data " & (i + 1)
+        Next
+    End If
+End Sub
