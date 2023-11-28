@@ -1,0 +1,86 @@
+Private Sub DataGridView1_CellPainting(sender As Object, e As DataGridViewCellPaintingEventArgs) Handles DataGridView1.CellPainting
+    If e.ColumnIndex = 0 AndAlso e.RowIndex >= 0 Then ' Assuming you want to merge cells in the first column
+        e.AdvancedBorderStyle.Right = DataGridViewAdvancedCellBorderStyle.None
+        e.Paint(e.CellBounds, DataGridViewPaintParts.All And Not DataGridViewPaintParts.Border)
+        Dim leftColumn As Single = Convert.ToSingle(e.CellBounds.Left)
+        Dim topColumn As Single = Convert.ToSingle(e.CellBounds.Top)
+        Dim heightColumn As Single = Convert.ToSingle(e.CellBounds.Height)
+        Dim widthColumn As Single = Convert.ToSingle(e.CellBounds.Width)
+        e.Graphics.DrawString(DataGridView1.Rows(e.RowIndex).Cells(e.ColumnIndex).Value.ToString(), e.CellStyle.Font, Brushes.Black, leftColumn, topColumn)
+        e.Handled = True
+    End If
+End Sub
+
+
+
+
+
+
+AddHandler DataGridView1.CellPainting, AddressOf DataGridView1_CellPainting
+
+
+
+
+Public Sub New()
+    InitializeComponent()
+    ' Add the CellPainting event handler
+    AddHandler DataGridView1.CellPainting, AddressOf DataGridView1_CellPainting
+End Sub
+
+
+
+
+
+Private Sub YourForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    ' Add the CellPainting event handler
+    AddHandler DataGridView1.CellPainting, AddressOf DataGridView1_CellPainting
+    ' Other initialization code...
+End Sub
+
+
+
+Private Sub DataGridView1_CellPainting(sender As Object, e As DataGridViewCellPaintingEventArgs) Handles DataGridView1.CellPainting
+    If e.RowIndex = 0 AndAlso e.ColumnIndex >= 0 Then ' Assuming you want to merge cells in the first row
+        e.AdvancedBorderStyle.Bottom = DataGridViewAdvancedCellBorderStyle.None
+        e.Paint(e.CellBounds, DataGridViewPaintParts.All And Not DataGridViewPaintParts.Border)
+        Dim leftColumn As Single = Convert.ToSingle(e.CellBounds.Left)
+        Dim topColumn As Single = Convert.ToSingle(e.CellBounds.Top)
+        Dim heightColumn As Single = Convert.ToSingle(e.CellBounds.Height)
+        Dim widthColumn As Single = Convert.ToSingle(e.CellBounds.Width)
+        e.Graphics.DrawString(DataGridView1.Rows(e.RowIndex).Cells(e.ColumnIndex).Value.ToString(), e.CellStyle.Font, Brushes.Black, leftColumn, topColumn)
+        e.Handled = True
+    End If
+End Sub
+
+Private Sub DataGridView1_CellValidating(sender As Object, e As DataGridViewCellValidatingEventArgs) Handles DataGridView1.CellValidating
+    ' Check if the edited cell is in a specific column (e.g., ColumnIndex = 1)
+    If e.ColumnIndex = 1 Then
+        Dim newCellValue As String = e.FormattedValue.ToString()
+
+        ' Perform your validation logic
+        If Not IsValid(newCellValue) Then
+            DataGridView1.Rows(e.RowIndex).ErrorText = "Invalid input!"
+            e.Cancel = True
+        Else
+            ' Clear the error text if validation passes
+            DataGridView1.Rows(e.RowIndex).ErrorText = String.Empty
+        End If
+    End If
+End Sub
+
+Private Function IsValid(input As String) As Boolean
+    ' Add your custom validation logic here
+    ' For example, you can check if the input meets certain criteria
+    ' Return True if valid, False otherwise
+    Return Not String.IsNullOrEmpty(input)
+End Function
+
+
+
+AddHandler DataGridView1.CellValidating, AddressOf DataGridView1_CellValidating
+
+
+
+
+
+AddHandler DataGridView1.CellPainting, AddressOf DataGridView1_CellPainting
