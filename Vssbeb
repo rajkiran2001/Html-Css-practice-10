@@ -84,3 +84,32 @@ AddHandler DataGridView1.CellValidating, AddressOf DataGridView1_CellValidating
 
 
 AddHandler DataGridView1.CellPainting, AddressOf DataGridView1_CellPainting
+
+
+
+
+
+
+
+
+Private Sub DataGridView1_CellPainting(sender As Object, e As DataGridViewCellPaintingEventArgs) Handles DataGridView1.CellPainting
+    If e.RowIndex >= 0 AndAlso e.ColumnIndex >= 0 AndAlso DataGridView1(e.ColumnIndex, e.RowIndex).Selected Then
+        ' Clear the cell content
+        e.PaintBackground(e.ClipBounds, True)
+        e.Handled = True
+
+        ' Draw a custom border to create the appearance of a merged cell
+        Using p As New Pen(Color.Black, 2)
+            Dim rect As Rectangle = e.CellBounds
+            rect.Width -= 2
+            rect.Height -= 2
+            e.Graphics.DrawRectangle(p, rect)
+        End Using
+
+        ' Draw the content of the first selected cell
+        If e.ColumnIndex = selectedStartColumn AndAlso e.RowIndex = selectedStartRow Then
+            ' Draw the content of the first selected cell
+            e.Graphics.DrawString(DataGridView1(e.ColumnIndex, e.RowIndex).Value.ToString(), e.CellStyle.Font, Brushes.Black, e.CellBounds.X + 2, e.CellBounds.Y + 2)
+        End If
+    End If
+End Sub
