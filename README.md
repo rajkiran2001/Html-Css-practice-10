@@ -357,3 +357,48 @@ Adjust the weights and intensity based on your fitness level, and ensure you war
 Message ChatGPT…
 
 ChatGPT can make mistakes. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Protected Sub GridView1_RowDataBound(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.GridViewRowEventArgs) Handles GridView1.RowDataBound For rowIndex As Integer = GridView1.Rows.Count 2 To 0 Step -1
+
+Dim gviewRow As GridviewRow = Gridview1.Rows(rowIndex)
+
+Dim gviewPreviousRow As GridViewRow = GridView1.Rows(rowIndex + 1)
+
+For cellCount As Integer = 0 To gviewRow.Cells.Count
+
+1
+
+If gviewRow.Cells(cellCount).Text = gviewPreviousRow.Cells(cellCount).Text Then
+
+If gviewPrevious Row.Cells(cellCount).RowSpan < 2 Then
+
+gviewRow.Cells(cellCount).RowSpan = 2
+
+Else
+
+gviewRow.Cells(cellCount).RowSpan = gview PreviousRow.Cells(cellCount).RowSpan + 1
+
+End If
+
+gviewPreviousRow.Cells(cellCount).Visible = False
+
+End If
+
+Next
+
+Next
