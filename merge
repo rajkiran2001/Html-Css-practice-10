@@ -176,3 +176,32 @@ Private Sub DataGridView1_CellClick(sender As Object, e As DataGridViewCellEvent
         Next
     End If
 End Sub
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Private Sub dgv_CellPainting(sender As Object, e As DataGridViewCellPaintingEventArgs) Handles dgv.CellPainting
+    If e.RowIndex = -1 AndAlso e.ColumnIndex > 0 Then
+        ' Check if the current column header is the same as the next one
+        If e.ColumnIndex < dgv.ColumnCount - 1 AndAlso dgv.Columns(e.ColumnIndex).HeaderText = dgv.Columns(e.ColumnIndex + 1).HeaderText Then
+            ' Merge the cells
+            e.AdvancedBorderStyle.Right = DataGridViewAdvancedCellBorderStyle.None
+            e.PaintBackground(e.CellBounds, True)
+            e.PaintContent(e.CellBounds)
+            e.Handled = True
+        End If
+    End If
+End Sub
+
